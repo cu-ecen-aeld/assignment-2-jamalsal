@@ -1,0 +1,20 @@
+#include(stdio.h)
+#include(syslog.h)
+
+int main(char *writefile[], char *writestr[]){
+	FILE *w_file = fopen(writerfile, "w+);
+	openlog("Wlog",0,LOG_USER);
+
+	if (w_file==NULL){
+		printf("Error: File does not exist.\n");
+		syslog(LOG_ERR,"Error, could not open %s",writefile);
+		return 1;
+	}
+
+	fprintf(w_file,writestr);
+	syslog(LOG_DEBUG, "Writing %s to %s", writefile,writestr);
+	fclose(w_file);
+	closelog();
+	return 0;
+}
+
